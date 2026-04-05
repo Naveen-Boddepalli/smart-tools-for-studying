@@ -246,7 +246,7 @@ Planned features for future iterations:
 ## 👤 Author
 
 **Naveen Boddepalli**
-- GitHub: [@boddepallinaveen](https://github.com/boddepallinaveen)
+- GitHub: [@Naveen-Boddepalli](https://github.com/Naveen-boddepalli)
 
 ---
 
