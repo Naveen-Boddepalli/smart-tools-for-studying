@@ -6,6 +6,7 @@ export default function Navbar({ darkMode, setDarkMode, activeTab, setActiveTab 
     { id: "grades", label: "Grade Tracker" },
     { id: "pomodoro", label: "Pomodoro" },
     { id: "expenses", label: "Expenses" },
+    { id: "fitness", label: "💪 Fitness" },
   ];
 
   return (
