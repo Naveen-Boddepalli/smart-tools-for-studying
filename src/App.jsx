@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
+import LoginPage from "./components/LoginPage";
 import AddAssignmentForm from "./components/AddAssignmentForm";
 import AssignmentList from "./components/AssignmentList";
 import PomodoroTimer from "./components/PomodoroTimer";
@@ -8,13 +9,22 @@ import SmartTip from "./components/SmartTip";
 import WorkloadChart from "./components/WorkloadChart";
 import GradeTracker from "./components/GradeTracker";
 import ExpenseTracker from "./components/ExpenseTracker";
-import FitnessTracker from "./components/FitnessTracker"; // ← NEW
+import FitnessTracker from "./components/FitnessTracker";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+
+function getSession() {
+  try {
+    return JSON.parse(localStorage.getItem("studyos-session") || "null");
+  } catch {
+    return null;
+  }
+}
 
 export default function App() {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
   const [activeTab, setActiveTab] = useState("assignments");
   const [assignments, setAssignments] = useLocalStorage("assignments", []);
+  const [user, setUser] = useState(getSession); // { name, email } or null
 
   React.useEffect(() => {
     document.body.className = darkMode ? "dark" : "light";
@@ -28,6 +38,23 @@ export default function App() {
   const deleteAssignment = (id) =>
     setAssignments((prev) => prev.filter((a) => a.id !== id));
 
+  const handleLogin = (userData) => setUser(userData);
+
+  const handleLogout = () => {
+    localStorage.removeItem("studyos-session");
+    setUser(null);
+  };
+
+  // Show login page only if not logged in
+  if (!user) {
+    return (
+      <>
+        <style>{`body { background: var(--bg); }`}</style>
+        <LoginPage onLogin={handleLogin} />
+      </>
+    );
+  }
+
   return (
     <div className="app">
       <Navbar
@@ -35,6 +62,8 @@ export default function App() {
         setDarkMode={setDarkMode}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        user={user}
+        onLogout={handleLogout}
       />
       <main className="main-content">
         {activeTab === "assignments" && (
@@ -56,7 +85,7 @@ export default function App() {
         {activeTab === "grades" && <GradeTracker darkMode={darkMode} />}
         {activeTab === "pomodoro" && <PomodoroTimer />}
         {activeTab === "expenses" && <ExpenseTracker darkMode={darkMode} />}
-        {activeTab === "fitness" && <FitnessTracker />} {/* ← NEW */}
+        {activeTab === "fitness" && <FitnessTracker />}
       </main>
     </div>
   );
