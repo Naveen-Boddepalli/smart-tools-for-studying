@@ -9,7 +9,7 @@ A feature-rich, student productivity web application built with **React 19** and
 ## 🖥️ Live Demo
 
 > _Deploy to Vercel and paste your link here_
-> `https://smart-study-dashboard.vercel.app`
+> `https://studyyy-os.netlify.app`
 
 ---
 
