@@ -8,7 +8,7 @@ A feature-rich, student productivity web application built with **React 19** and
 
 ## 🖥️ Live Demo
 
-> `https://studyyy-os.netlify.app`
+> **🔗 [Live Demo: Try the Resume Analyser Here!](https://studyyy-os.netlify.app)**
 
 ---
 
